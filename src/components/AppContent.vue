@@ -9,7 +9,7 @@
         <h4 class="alert-heading">Data was cached!</h4>
         <p>You can clear cache and load data again.</p>
         <hr/>
-        <button class="btn btn-sm btn-primary mr-auto">
+        <button class="btn btn-sm btn-primary mr-auto" @click="clearCache">
           Clear cache
         </button>
       </div>
@@ -24,6 +24,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import { setCache } from '@/utils';
 
 export default {
 
@@ -62,6 +63,12 @@ export default {
     ]),
   },
 
+  watch: {
+    data(value) {
+      setCache(value);
+    },
+  },
+
   created() {
     this.load();
   },
@@ -69,6 +76,7 @@ export default {
   methods: {
     ...mapActions([
       'load',
+      'clearCache',
     ]),
   },
 };
